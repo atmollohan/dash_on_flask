@@ -6,12 +6,14 @@ layout = html.Div([
     dcc.Dropdown(
         id='my-dropdown',
         options=[
-            {'label': 'Coke', 'value': 'COKE'},
-            {'label': 'Tesla', 'value': 'TSLA'},
+            {'label': 'Amazon', 'value': 'AMZN'},
             {'label': 'Apple', 'value': 'AAPL'},
-            {'label': 'UnitedHealth Group', 'value': 'UNH'},
+            {'label': 'Black Rock', 'value': 'BLK'},
+            {'label': 'Disney', 'value': 'DIS'},
+            {'label': 'Procter & Gamble', 'value': 'PG'},
+            {'label': 'United Health Group', 'value': 'UNH'},
         ],
-        value='COKE'
+        value='UNH'
     ),
     dcc.Graph(id='my-graph')
 ], style={'width': '500'})
