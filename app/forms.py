@@ -13,8 +13,8 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    stock = StringField('Favorite Stock', validators=[DataRequired()])
     submit = SubmitField('Register')
+    remember_me = BooleanField('Remember Me')
 
 class EditForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])

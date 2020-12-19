@@ -57,15 +57,17 @@ def register():
         return redirect(url_for('main.index'))
 
     form = RegistrationForm()
-    print(form)
     if form.validate_on_submit():
         user = User(username=form.username.data)
         user.set_password(form.password.data)
-        user.set_favorite_stock(form.stock.data)
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for('main.login'))
+        login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('main.index')
+        return redirect(next_page)
 
     return render_template('register.html', title='Register', form=form)
 
