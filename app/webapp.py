@@ -17,7 +17,6 @@ from app.models import User
 
 server_bp = Blueprint('main', __name__)
 
-
 @server_bp.route('/')
 def index():
     return render_template("index.html", title='Home Page')
@@ -77,7 +76,6 @@ def edit():
     form = EditForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        user.set_password(form.password.data)
         user.set_favorite_stock(form.stock.data)
         user.set_state_code(form.state.data)
         user.set_age(form.age.data)
