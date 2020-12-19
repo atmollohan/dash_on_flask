@@ -1,12 +1,19 @@
-<div>
-  Test:
-  <a href="{{ url_for('main.index') }}">Home</a>
-  {% if current_user.is_anonymous %}
-  <a href="{{ url_for('main.login') }}">Login</a>
-  {% else %}
-  <a href="{{ url_for('main.logout') }}">Logout</a>
-  {% endif %}
-
-  {% block content %}
+<header>
+  {% block header %}
+  <strong>
+    <na>
+      <ul>
+        <li><a href="{{ url_for('main.index') }}">Home</a></li>
+        {% if current_user.is_anonymous %}
+        <li><a href="{{ url_for('main.login') }}">Login</a></li>
+        {% else %}
+        <li><a href="{{ url_for('/dashboard/') }}">Dashboard</a></li>
+        <li><a href="{{ url_for('main.edit') }}">Edit</a></li>
+        <li><a href="{{ url_for('main.logout') }}">Logout</a></li>
+        {% endif %}
+      </ul>
+    </na>
+  </strong>
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
   {% endblock %}
-</div>
+</header>

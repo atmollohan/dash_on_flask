@@ -1,9 +1,15 @@
-{% extends "base.html" %}
-
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
 {% block content %}
-{% if current_user.is_anonymous %}
+<main>
+  {% if current_user.is_anonymous %}
   <h1>Hello, stranger!</h1>
-{% else  %}
+  {% else %}
   <h1>Hi, {{ current_user.username }}!</h1>
-{% endif %}
+  <h2>User Info</h2>
+  <p>Favorite Stock: {{ current_user.favorite_stock }}</p>
+  <p>Age: {{ current_user.age }}</p>
+  <p>Home State: {{ current_user.state_code }}</p>
+  {% endif %}
+</main>
 {% endblock %}
