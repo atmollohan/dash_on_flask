@@ -18,7 +18,7 @@ class RegistrationForm(FlaskForm):
 
 class EditForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    stock = StringField('Favorite Stock', validators=[DataRequired()])
-    state = StringField('Home State', validators=[DataRequired()])
-    age = IntegerField('Age', validators=[DataRequired()])
+    stock = StringField('Favorite Stock')
+    state = StringField('Home State')
+    age = IntegerField('Age')
     submit = SubmitField('Save')

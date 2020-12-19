@@ -7,9 +7,16 @@
   {% else %}
   <h1>Hi, {{ current_user.username }}!</h1>
   <h2>User Info</h2>
+  <p>Username: {{ current_user.username }}!</p>
+  {% if current_user.favorite_stock %}
   <p>Favorite Stock: {{ current_user.favorite_stock }}</p>
+  {% endif %}
+  {% if current_user.age %}
   <p>Age: {{ current_user.age }}</p>
+  {% endif %}
+  {% if current_user.state_code %}
   <p>Home State: {{ current_user.state_code }}</p>
+  {% endif %}
   {% endif %}
 </main>
 {% endblock %}
