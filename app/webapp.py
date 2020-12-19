@@ -12,6 +12,7 @@ from werkzeug.urls import url_parse
 from app.extensions import db
 from app.forms import LoginForm
 from app.forms import RegistrationForm
+from app.forms import EditForm
 from app.models import User
 
 server_bp = Blueprint('main', __name__)
@@ -57,12 +58,32 @@ def register():
         return redirect(url_for('main.index'))
 
     form = RegistrationForm()
+    print(form)
     if form.validate_on_submit():
         user = User(username=form.username.data)
         user.set_password(form.password.data)
+        user.set_favorite_stock(form.stock.data)
         db.session.add(user)
         db.session.commit()
 
         return redirect(url_for('main.login'))
 
     return render_template('register.html', title='Register', form=form)
+
+@server_bp.route('/edit/', methods=['GET', 'POST'])
+@login_required
+def edit():
+
+    form = EditForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        user.set_password(form.password.data)
+        user.set_favorite_stock(form.stock.data)
+        user.set_state_code(form.state.data)
+        user.set_age(form.age.data)
+        db.session.merge(user)
+        db.session.commit()
+
+        return redirect(url_for('main.index'))
+
+    return render_template('edit.html', title='Edit', form=form)

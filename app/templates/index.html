@@ -5,6 +5,6 @@
   <h1>Hello, stranger!</h1>
 {% else  %}
   <h1>Hi, {{ current_user.username }}!</h1>
-  <a href="{{ url_for('/dashboard/') }}">Dashboard</a>
+  <h2>Favorite Stock: {{ current_user.favorite_stock }}</h2>
 {% endif %}
 {% endblock %}
