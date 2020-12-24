@@ -17,6 +17,14 @@
   {% if current_user.state_code %}
   <p>Home State: {{ current_user.state_code }}</p>
   {% endif %}
+  <p>
+    <p>Watched Stocks: </p>
+    {% for item in my_stonks %}
+    <li>
+      {{ item.label }}
+    </li>
+    {% endfor %}
+  </p>
   {% endif %}
 </main>
 {% endblock %}

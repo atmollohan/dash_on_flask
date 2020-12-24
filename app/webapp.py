@@ -1,3 +1,4 @@
+import yfinance as yf
 from flask import Blueprint
 from flask import redirect
 from flask import render_template
@@ -14,12 +15,16 @@ from app.forms import LoginForm
 from app.forms import RegistrationForm
 from app.forms import EditForm
 from app.models import User
+from app.models import Watching
 
 server_bp = Blueprint('main', __name__)
 
 @server_bp.route('/')
 def index():
-    return render_template("index.html", title='Home Page')
+    if current_user.is_authenticated:
+        # {'label': 'Amazon', 'value': 'AMZN'}
+        my_stonks = [{'label': item.stock_name, 'value': item.stock_ticker} for item in Watching.query.filter_by(user_id=current_user.id).all()]
+    return render_template("index.html", title='Home Page', my_stonks=my_stonks)
 
 
 @server_bp.route('/login/', methods=['GET', 'POST'])
@@ -78,9 +83,19 @@ def edit():
     form = EditForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        user.set_favorite_stock(form.stock.data)
         user.set_state_code(form.state.data)
         user.set_age(form.age.data)
+        stock_ticker = form.stock.data
+        already_watching = bool(Watching.query.filter_by(user_id=user.id, stock_ticker=stock_ticker).first())
+        if not already_watching and len(form.stock.data) < 5:
+            try:
+                stock = yf.Ticker(stock_ticker)
+                stock_name = stock.info['shortName']
+                watching = Watching(user_id=user.id, stock_ticker=form.stock.data, stock_name=stock_name)
+                user.set_favorite_stock(form.stock.data)
+                user.watches.append(watching)
+            except:
+                print('There was an error getting stock data')
         db.session.merge(user)
         db.session.commit()
 
