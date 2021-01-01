@@ -20,6 +20,10 @@
             {{ form.age.label }}<br>
             {{ form.age(size=32, value=current_user.age) }}<br>
         </p>
+        <p>
+            {{ form.dob.label }}<br>
+            {{ form.dob(size=32, class_='datepicker') }}<br>
+        </p>
         <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}

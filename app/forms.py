@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, PasswordField, StringField, SubmitField, IntegerField
+from wtforms import BooleanField, PasswordField, StringField, SubmitField, IntegerField, DateField
 from wtforms.validators import DataRequired
 
 
@@ -21,4 +21,5 @@ class EditForm(FlaskForm):
     stock = StringField('Favorite Stock')
     state = StringField('Home State')
     age = IntegerField('Age')
+    dob = DateField('Date of Birth', format='%Y-%m-%d')
     submit = SubmitField('Save')
